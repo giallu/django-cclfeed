@@ -1,0 +1,30 @@
+=====
+CCLFeed
+=====
+
+CCLFeed is a simple Django app to create a RSS feed of messages posted to
+the CCL (Computational Chemistry List)
+
+Quick start
+-----------
+
+1. Add "cclfeed" to your INSTALLED_APPS setting like this::
+
+      INSTALLED_APPS = (
+          ...
+          'cclfeed',
+      )
+
+2. Include the cclfeed URLconf in your project urls.py like this::
+
+      url(r'^cclfeed/', include('cclfeed.urls')),
+
+3. Run `python manage.py syncdb` to create the cclfeed models.
+
+4. Load messages from CCL FTP with `python manage.py loadmessages`
+
+5. Create a cron job to repeat the above command
+
+6. Start the development server and visit http://127.0.0.1:8000/cclfeed/
+   to check the RSS feed.
+

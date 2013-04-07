@@ -21,8 +21,14 @@ class Command(BaseCommand):
         f = ftplib.FTP('ftp.ccl.net', 'anonymous')
         for day in days:
             mbox = tempfile.NamedTemporaryFile()
-            f.cwd('/pub/chemistry/archived-messages/{}/{:02}'.format(day.year, day.month))
-            f.retrbinary('RETR {}'.format(day.day), mbox.write)
+            directory = '/pub/chemistry/archived-messages/{}/{:02}'.format(day.year, day.month)
+            try:
+                self.stdout.write('reading file {}/{:02}'.format(directory, day.day))
+                f.cwd(directory)
+                f.retrbinary('RETR {:01}'.format(day.day), mbox.write)
+            except Exception as e:
+                self.stdout.write('Error: {}'.format(e))
+
             parser = mailbox.mbox(mbox.name)
             for i, msg in enumerate(parser):
                 messages = messages + 1

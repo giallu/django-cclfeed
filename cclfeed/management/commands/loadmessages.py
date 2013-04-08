@@ -25,7 +25,7 @@ class Command(BaseCommand):
             try:
                 self.stdout.write('reading file {}/{:02}'.format(directory, day.day))
                 f.cwd(directory)
-                f.retrbinary('RETR {:01}'.format(day.day), mbox.write)
+                f.retrbinary('RETR {:02}'.format(day.day), mbox.write)
             except Exception as e:
                 self.stdout.write('Error: {}'.format(e))
 

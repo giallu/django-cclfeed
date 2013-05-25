@@ -45,7 +45,7 @@ class Command(BaseCommand):
                         subject=get_header(msg['Subject']),
                         sent_on=date,
                         sender=get_header(msg['X-Original-From']),
-                        text=body.replace("\n","<br/>"),
+                        text=body,
                         ordinal=i+1
                         )
                     if created:

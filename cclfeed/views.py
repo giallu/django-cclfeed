@@ -15,14 +15,5 @@ class LatestMessagesFeed(Feed):
         return item.subject
 
     def item_description(self, item):
-        return item.text
+        return item.text.replace('\n', '<br>')
 
-    # item_link is only needed if item has no get_absolute_url method.
-    def item_link(self, item):
-        baseurl = 'http://www.ccl.net/cgi-bin/ccl/message-new?'
-        return baseurl + '{}+{:02}+{:02}+{:03}'.format(
-            item.sent_on.year,
-            item.sent_on.month,
-            item.sent_on.day,
-            item.ordinal
-        )

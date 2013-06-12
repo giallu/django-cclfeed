@@ -12,7 +12,7 @@ class MessageData(models.Model):
     def get_absolute_url(self):
         """Return the message URL from the CCL website"""
         baseurl = 'http://www.ccl.net/cgi-bin/ccl/message-new?'
-        return baseurl + '{}+{:02}+{:02}+{:03}'.format(
+        return baseurl + '{0}+{1:02}+{2:02}+{3:03}'.format(
             self.sent_on.year,
             self.sent_on.month,
             self.sent_on.day,

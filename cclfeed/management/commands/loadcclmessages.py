@@ -6,16 +6,19 @@ import datetime
 import email
 
 from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 
 from cclfeed.models import MessageData
 
+CCLFEED_LOADMSGS_DAYS = getattr(settings, "CCLFEED_LOADMSGS_DAYS", 5)
 
 class Command(BaseCommand):
     help = 'Read messages from ftp.ccl.net and store them in the database'
 
     def handle(self, *args, **options):
         today = datetime.date.today()
-        days = [today - datetime.timedelta(days=days) for days in range(5)]
+        days = [today - datetime.timedelta(days=days) 
+                for days in range(CCLFEED_LOADMSGS_DAYS-1, -1, -1)]
 
         imported = 0
         messages = 0

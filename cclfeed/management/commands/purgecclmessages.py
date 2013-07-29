@@ -4,10 +4,11 @@ from optparse import make_option
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.timezone import now
+from django.conf import settings
 
 from cclfeed.models import MessageData
 
-DEFAULT_DAYS = 15
+CCLFEED_PURGEMSGS_DAYS = getattr(settings, "CCLFEED_PURGEMSGS_DAYS", 30)
 
 class Command(BaseCommand):
     help = 'Delete the older messages from the database'
@@ -15,10 +16,10 @@ class Command(BaseCommand):
         make_option('-d', '--days',
                     dest='days',
                     type='int',
-                    default=DEFAULT_DAYS,
+                    default=CCLFEED_PURGEMSGS_DAYS,
                     help=('Remove al messages older than ' + 
                           'the specified number ' + 
-                          'of days (def. {0})').format(DEFAULT_DAYS),
+                          'of days (def. {0})').format(CCLFEED_PURGEMSGS_DAYS),
                     ),
         )
 
